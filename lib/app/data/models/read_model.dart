@@ -11,8 +11,7 @@ class Read {
   int? newpage;
   DateTime? time;
 
-  Read(
-      {this.id, this.bookid, this.prepage, this.newpage, this.time});
+  Read({this.id, this.bookid, this.prepage, this.newpage, this.time});
 
   Read.fromJson(DocumentSnapshot snapshot) {
     Map<String, dynamic>? json = snapshot.data() as Map<String, dynamic>?;
@@ -38,6 +37,13 @@ class Read {
         readCollection,
       ),
       storageReference: storage.ref(readCollection));
+
+  // Database get db => Database(
+  // collectionReference: firestore
+  //     .collection(bookCollection)
+  //     .doc(bookID)
+  //     .collection(readingCollection),
+  // storageReference: storage.ref(bookCollection).child(readingCollection));
 
   Future<Read> save() async {
     id == null ? id = await db.add(toJson()) : await db.edit(toJson());
@@ -79,4 +85,43 @@ class Read {
       return list;
     });
   }
+
+  // Stream<List<Read>> streamAllList() async* {
+  //   yield* firestore
+  //       .collectionGroup(readCollection)
+  //       .where("time", isGreaterThanOrEqualTo: DateTime(2020))
+  //       .where("id", isNull: true)
+  //       .orderBy("time", descending: true)
+  //       .snapshots()
+  //       .map((query) {
+  //     List<Read> list = [];
+  //     for (var doc in query.docs) {
+  //       print(doc.reference);
+  //       print(doc.data());
+  //       list.add(
+  //         Read.fromJson(
+  //           doc,
+  //         ),
+  //       );
+  //     }
+  //     return list;
+  //   });
+  // }
+
+  // Stream<List<Read>> streamListFromBook() async* {
+  //   yield* db.collectionReference
+  //       .orderBy("time", descending: true)
+  //       .snapshots()
+  //       .map((query) {
+  //     List<Read> list = [];
+  //     for (var doc in query.docs) {
+  //       list.add(
+  //         Read.fromJson(
+  //           doc,
+  //         ),
+  //       );
+  //     }
+  //     return list;
+  //   });
+  // }
 }
