@@ -1,3 +1,5 @@
+// ignore_for_file: must_be_immutable
+
 import 'dart:io';
 import 'package:avatar_glow/avatar_glow.dart';
 import 'package:badges/badges.dart';

@@ -1,3 +1,5 @@
+// ignore_for_file: invalid_use_of_protected_member
+
 import 'dart:io';
 import 'package:get/get.dart';
 import 'package:librarian/app/data/database.dart';

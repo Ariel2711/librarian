@@ -1,3 +1,5 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:avatar_glow/avatar_glow.dart';
 import 'package:convex_bottom_bar/convex_bottom_bar.dart';
 import 'package:dropdown_search/dropdown_search.dart';
@@ -22,7 +24,7 @@ class HomeView extends GetView<HomeController> {
   }
 
   @override
-  Widget build(BuildContext context) { 
+  Widget build(BuildContext context) {
     controller.modelToController(reads);
     print("userid = ${authC.user.id}");
     print("user = ${authC.user.email}");
@@ -100,18 +102,20 @@ class HomeView extends GetView<HomeController> {
                             child: Material(
                               elevation: 6.0,
                               shape: CircleBorder(),
-                              child:
-                                  Icon(Icons.person, size: 80, color: secondary),
+                              child: Icon(Icons.person,
+                                  size: 80, color: secondary),
                             ),
                           ),
                   ),
-                  Obx(() => SingleChildScrollView(
-                    scrollDirection: Axis.horizontal,
-                    child: Text(
-                      authC.user.username ?? "Username",
-                      style: TextStyle(color: clr_white, fontSize: 20),
+                  Obx(
+                    () => SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
+                      child: Text(
+                        authC.user.username ?? "Username",
+                        style: TextStyle(color: clr_white, fontSize: 20),
+                      ),
                     ),
-                  ),),
+                  ),
                 ],
               ),
             ),
@@ -306,87 +310,88 @@ class HomeView extends GetView<HomeController> {
                                     itemCount: controller.reads.length,
                                     itemBuilder: (context, index) {
                                       return SingleChildScrollView(
-                                        child: Container(
-                                          decoration: BoxDecoration(
-                                            color: primary.withOpacity(
-                                                index % 2 == 1 ? 0.2 : 0.3),
-                                          ),
-                                          child: Dismissible(
-                                              confirmDismiss: (direction) {
-                                                return showDialog(
-                                                    context: context,
-                                                    builder: (context) {
-                                                      return AlertDialog(
-                                                        titleTextStyle:
-                                                            TextStyle(
-                                                                color: primary,
-                                                                fontSize: 20),
-                                                        contentTextStyle:
-                                                            TextStyle(
-                                                                color: primary,
-                                                                fontSize: 17),
-                                                        title: Text("Confirm"),
-                                                        content: Text(
-                                                            "Are you sure to delete?"),
-                                                        actions: [
-                                                          IconButton(
-                                                              onPressed: () {
-                                                                Navigator.of(
-                                                                        context)
-                                                                    .pop(false);
-                                                              },
-                                                              icon: Text(
-                                                                "No",
-                                                                style: TextStyle(
-                                                                    color:
-                                                                        primary),
-                                                              )),
-                                                          IconButton(
-                                                              onPressed: () {
-                                                                Navigator.of(
-                                                                        context)
-                                                                    .pop(true);
-                                                              },
-                                                              icon: Text(
-                                                                "Yes",
-                                                                style: TextStyle(
-                                                                    color:
-                                                                        primary),
-                                                              ))
-                                                        ],
-                                                      );
-                                                    });
-                                              },
-                                              onDismissed: (direction) async =>
-                                                  await controller.deleteread(
-                                                      controller.reads[index]),
-                                              key: Key(index.toString()),
-                                              background: Container(
-                                                color: red,
-                                                child: Row(
-                                                  children: [
-                                                    Icon(
-                                                      Icons.delete,
-                                                      size: 40,
-                                                      color: white,
-                                                    ),
-                                                    SizedBox(
-                                                      width: 8,
-                                                    ),
-                                                    Text(
-                                                      "Delete",
-                                                      style: TextStyle(
-                                                          color: white),
-                                                    )
-                                                  ],
+                                          child: Container(
+                                        decoration: BoxDecoration(
+                                          color: primary.withOpacity(
+                                              index % 2 == 1 ? 0.2 : 0.3),
+                                        ),
+                                        child: Dismissible(
+                                          confirmDismiss: (direction) {
+                                            return showDialog(
+                                                context: context,
+                                                builder: (context) {
+                                                  return AlertDialog(
+                                                    titleTextStyle: TextStyle(
+                                                        color: primary,
+                                                        fontSize: 20),
+                                                    contentTextStyle: TextStyle(
+                                                        color: primary,
+                                                        fontSize: 17),
+                                                    title: Text("Confirm"),
+                                                    content: Text(
+                                                        "Are you sure to delete?"),
+                                                    actions: [
+                                                      IconButton(
+                                                          onPressed: () {
+                                                            Navigator.of(
+                                                                    context)
+                                                                .pop(false);
+                                                          },
+                                                          icon: Text(
+                                                            "No",
+                                                            style: TextStyle(
+                                                                color: primary),
+                                                          )),
+                                                      IconButton(
+                                                          onPressed: () {
+                                                            Navigator.of(
+                                                                    context)
+                                                                .pop(true);
+                                                          },
+                                                          icon: Text(
+                                                            "Yes",
+                                                            style: TextStyle(
+                                                                color: primary),
+                                                          ))
+                                                    ],
+                                                  );
+                                                });
+                                          },
+                                          onDismissed: (direction) async =>
+                                              await controller.deleteread(
+                                                  controller.reads[index]),
+                                          key: Key(index.toString()),
+                                          background: Container(
+                                            color: red,
+                                            child: Row(
+                                              children: [
+                                                Icon(
+                                                  Icons.delete,
+                                                  size: 40,
+                                                  color: white,
                                                 ),
-                                                padding:
-                                                    EdgeInsets.only(right: 10),
-                                              ),
-                                              child: ListBook(
-                                                read: controller.reads[index],
-                                                book: controller.books.firstWhereOrNull((element) => element.id == controller.reads[index].bookid
-                                              )?? Book()),
+                                                SizedBox(
+                                                  width: 8,
+                                                ),
+                                                Text(
+                                                  "Delete",
+                                                  style:
+                                                      TextStyle(color: white),
+                                                )
+                                              ],
+                                            ),
+                                            padding: EdgeInsets.only(right: 10),
+                                          ),
+                                          child: ListBook(
+                                              read: controller.reads[index],
+                                              book: controller.books
+                                                      .firstWhereOrNull(
+                                                          (element) =>
+                                                              element.id ==
+                                                              controller
+                                                                  .reads[index]
+                                                                  .bookid) ??
+                                                  Book()),
                                         ),
                                       ));
                                     }),
@@ -497,7 +502,7 @@ class HomeView extends GetView<HomeController> {
                                     height: 15,
                                   ),
                                   TextFormField(
-                                    enabled: false,
+                                      enabled: false,
                                       autovalidateMode:
                                           AutovalidateMode.onUserInteraction,
                                       readOnly: true,
@@ -561,6 +566,7 @@ class HomeView extends GetView<HomeController> {
                                                 .selectedbook!.readpage!) {
                                           return "This field can't be less or equal than previous page";
                                         }
+                                        return null;
                                       },
                                       controller: controller.newpageC,
                                       showCursor: true,
@@ -691,23 +697,25 @@ class BookCard extends GetView<HomeController> {
             mainAxisSize: MainAxisSize.max,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-               book.image != null
-                ? Container(
-                  height: 80,
-                  width: 150,
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      image: DecorationImage(
-                          image: NetworkImage(book.image!), fit: BoxFit.cover)),
-                )
-                : Container(
-                  height: 80,
-                  width: 150,
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      image: DecorationImage(
-                          image: AssetImage("assets/default.png"), fit: BoxFit.fitHeight)),
-                ),
+              book.image != null
+                  ? Container(
+                      height: 80,
+                      width: 150,
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
+                          image: DecorationImage(
+                              image: NetworkImage(book.image!),
+                              fit: BoxFit.cover)),
+                    )
+                  : Container(
+                      height: 80,
+                      width: 150,
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
+                          image: DecorationImage(
+                              image: AssetImage("assets/default.png"),
+                              fit: BoxFit.fitHeight)),
+                    ),
               SizedBox(
                 height: 15,
               ),
@@ -771,7 +779,7 @@ class BookCard extends GetView<HomeController> {
 }
 
 class ListBook extends GetView<HomeController> {
-  ListBook({required this.read,required this.book});
+  ListBook({required this.read, required this.book});
   Read read;
   Book book;
   @override
@@ -789,27 +797,26 @@ class ListBook extends GetView<HomeController> {
             ),
           ),
         ),
-        leading: 
-        book.image != null
-        ? Container(
-          height: 40,
-          width: 60,
-          decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(5),
-              image: DecorationImage(
-                  image: NetworkImage(book.image!), fit: BoxFit.cover)),
-        )
-        : Container(
-          height: 40,
-          width: 60,
-          decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(5),
-              image: DecorationImage(
-                  image: AssetImage("assets/default.png"), fit: BoxFit.fitHeight)),
-        ),
+        leading: book.image != null
+            ? Container(
+                height: 40,
+                width: 60,
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(5),
+                    image: DecorationImage(
+                        image: NetworkImage(book.image!), fit: BoxFit.cover)),
+              )
+            : Container(
+                height: 40,
+                width: 60,
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(5),
+                    image: DecorationImage(
+                        image: AssetImage("assets/default.png"),
+                        fit: BoxFit.fitHeight)),
+              ),
         title: SingleChildScrollView(
-          scrollDirection: Axis.horizontal,
-          child: Text(book.judul!)),
+            scrollDirection: Axis.horizontal, child: Text(book.judul!)),
         subtitle: Text("${DateFormat.yMMMEd().format(read.time!)}"));
   }
 }

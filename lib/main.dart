@@ -32,9 +32,7 @@ class MyApp extends StatelessWidget {
                 backgroundColor: clr_white,
               ),
               elevatedButtonTheme: ElevatedButtonThemeData(
-                style: ElevatedButton.styleFrom(
-                  primary: primary,
-                ),
+                style: ElevatedButton.styleFrom(),
               ),
               appBarTheme: AppBarTheme(backgroundColor: secondary),
               textTheme: TextTheme(

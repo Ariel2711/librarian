@@ -1,3 +1,5 @@
+// ignore_for_file: must_be_immutable
+
 import 'dart:io';
 import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
@@ -188,54 +190,50 @@ class AddView extends GetView<AddController> {
                             SizedBox(
                               height: 8,
                             ),
-                            Obx(() =>
-                                controller.imagePath.value != ''
+                            Obx(() => controller.imagePath.value != ''
+                                ? Padding(
+                                    padding: const EdgeInsets.all(10),
+                                    child: Container(
+                                      height: 200,
+                                      width: 400,
+                                      decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(10),
+                                          image: DecorationImage(
+                                              image: FileImage(File(
+                                                  controller.imagePath.value)),
+                                              fit: BoxFit.cover)),
+                                    ))
+                                : book.image != null
                                     ? Padding(
                                         padding: const EdgeInsets.all(10),
                                         child: Container(
-                                              height: 200,
-                                              width: 400,
-                                              decoration: BoxDecoration(
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          10),
-                                                  image: DecorationImage(
-                                                      image: FileImage(
-                                                         File(controller.imagePath.value)),
-                                                      fit: BoxFit.cover)),
-                                            )
-                                      )
-                                    : book.image != null
-                                        ? Padding(
-                                            padding: const EdgeInsets.all(10),
-                                            child: Container(
-                                              height: 200,
-                                              width: 400,
-                                              decoration: BoxDecoration(
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          10),
-                                                  image: DecorationImage(
-                                                      image: NetworkImage(
-                                                          book.image!),
-                                                      fit: BoxFit.cover)),
-                                            ))
-                                        : Padding(
-                                            padding: const EdgeInsets.all(10),
-                                            child: Container(
-                                              width: 400,
-                                              height: 200,
-                                              child: Center(
-                                                  child: Image(
-                                                      image: AssetImage(
-                                                          "assets/book.png"))),
-                                              decoration: BoxDecoration(
-                                                color: clr_white,
-                                                borderRadius:
-                                                    BorderRadius.circular(20),
-                                              ),
-                                            ),
-                                          )),
+                                          height: 200,
+                                          width: 400,
+                                          decoration: BoxDecoration(
+                                              borderRadius:
+                                                  BorderRadius.circular(10),
+                                              image: DecorationImage(
+                                                  image:
+                                                      NetworkImage(book.image!),
+                                                  fit: BoxFit.cover)),
+                                        ))
+                                    : Padding(
+                                        padding: const EdgeInsets.all(10),
+                                        child: Container(
+                                          width: 400,
+                                          height: 200,
+                                          child: Center(
+                                              child: Image(
+                                                  image: AssetImage(
+                                                      "assets/book.png"))),
+                                          decoration: BoxDecoration(
+                                            color: clr_white,
+                                            borderRadius:
+                                                BorderRadius.circular(20),
+                                          ),
+                                        ),
+                                      )),
                             SizedBox(
                               height: 10,
                             ),
@@ -267,12 +265,11 @@ class AddView extends GetView<AddController> {
                               () => Container(
                                 width: Get.width,
                                 child: FloatingActionButton.extended(
-                                  backgroundColor: primary,
+                                    backgroundColor: primary,
                                     onPressed: controller.isSaving
                                         ? null
                                         : () {
-                                            if (form.currentState!
-                                                .validate()) {
+                                            if (form.currentState!.validate()) {
                                               controller.store(book);
                                             }
                                           },

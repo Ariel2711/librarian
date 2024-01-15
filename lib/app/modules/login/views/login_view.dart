@@ -1,3 +1,5 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
@@ -202,7 +204,10 @@ class LoginView extends GetView<AuthController> {
                                       groupValue: controller.selectedGender,
                                       onChanged: (value) => controller
                                           .selectedGender = value ?? 0,
-                                      title: Text("Male", style: TextStyle(color: primary),),
+                                      title: Text(
+                                        "Male",
+                                        style: TextStyle(color: primary),
+                                      ),
                                     ),
                                   ),
                                   Expanded(
@@ -212,7 +217,10 @@ class LoginView extends GetView<AuthController> {
                                       groupValue: controller.selectedGender,
                                       onChanged: (value) => controller
                                           .selectedGender = value ?? 0,
-                                      title: Text("Female", style: TextStyle(color: primary),),
+                                      title: Text(
+                                        "Female",
+                                        style: TextStyle(color: primary),
+                                      ),
                                     ),
                                   ),
                                 ],
@@ -234,29 +242,27 @@ class LoginView extends GetView<AuthController> {
                     height: 5,
                   ),
                   Obx(
-                      () => AppButton(
-                        shapeBorder: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(100)),
-                        width: Get.width,
-                        text: controller.isSaving ? "Loading..." : "Submit",
-                        child: controller.isSaving
-                            ? Text("Loading...")
-                            : null,
-                        color: primary,
-                        textColor: clr_white,
-                        onTap: controller.isSaving
-                            ? null
-                            : () async {
-                                if (form.currentState!.validate()) {
-                                  controller.isSaving = true;
-                                  controller.isRegis
-                                      ? await controller.register()
-                                      : await controller.login();
-                                  controller.isSaving = false;
-                                }
-                              },
-                      ),
+                    () => AppButton(
+                      shapeBorder: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(100)),
+                      width: Get.width,
+                      text: controller.isSaving ? "Loading..." : "Submit",
+                      child: controller.isSaving ? Text("Loading...") : null,
+                      color: primary,
+                      textColor: clr_white,
+                      onTap: controller.isSaving
+                          ? null
+                          : () async {
+                              if (form.currentState!.validate()) {
+                                controller.isSaving = true;
+                                controller.isRegis
+                                    ? await controller.register()
+                                    : await controller.login();
+                                controller.isSaving = false;
+                              }
+                            },
                     ),
+                  ),
                   TextButton(
                     onPressed: () {
                       controller.isRegis = !controller.isRegis;
